@@ -1,10 +1,10 @@
 # *insight API*
 
-*insight API* is an open-source bitcoin blockchain  REST
+*insight API* is an open-source bitmark blockchain  REST
 and websocket API. Insight API runs in NodeJS and use LevelDB for storage. 
 
-*Insight API* allows to develop bitcoin related applications such as wallets that 
-require certain information from the blockchain that bitcoind does not provide.
+*Insight API* allows to develop bitmark related applications such as wallets that 
+require certain information from the blockchain that bitmarkd does not provide.
 
 A blockchain explorer front-end have been developed to top of *Insight API*, it can
 be downloaded at [Github Insight Repository](https://github.com/bitpay/insight).
@@ -31,17 +31,17 @@ to ignore the cache in a particular API request.
 
 ## Prerequisites
 
-* **bitcoind** - Download and Install [Bitcoin](http://bitcoin.org/en/download)
+* **bitmarkd** - Download and Install [Bitcoin](http://bitmark.org/en/download)
 
-*insight API* needs a *trusted* bitcoind node to run. *insight API* will connect to the node
+*insight API* needs a *trusted* bitmarkd node to run. *insight API* will connect to the node
 thru the RPC API, Peer-to-peer protocol and will even read its raw .dat files for syncing.
 
-Configure bitcoind to listen to RPC calls and set `txindex` to true.
-The easiest way to do this is by copying `./etc/bitcoind/bitcoin.conf` to your
-bitcoin data directory (usually `"~/.bitcoin"` on Linux, `"%appdata%\Bitcoin\"` on Windows,
+Configure bitmarkd to listen to RPC calls and set `txindex` to true.
+The easiest way to do this is by copying `./etc/bitmarkd/bitmark.conf` to your
+bitmark data directory (usually `"~/.bitmark"` on Linux, `"%appdata%\Bitcoin\"` on Windows,
 or `"~/Library/Application Support/Bitcoin"` on Mac OS X).
 
-bitcoind must be running and must have finished downloading the blockchain **before** running *insight API*.
+bitmarkd must be running and must have finished downloading the blockchain **before** running *insight API*.
 
 
 * **Node.js v0.10.x** - Download and Install [Node.js](http://www.nodejs.org/download/).
@@ -77,12 +77,12 @@ bitcoind must be running and must have finished downloading the blockchain **bef
 All configuration is specified in the [config](config/) folder, particularly the [config.js](config/config.js) file. There you can specify your application name and database name. Certain configuration values are pulled from environment variables if they are defined:
 
 ```
-BITCOIND_HOST         # RPC bitcoind host
-BITCOIND_PORT         # RPC bitcoind Port
-BITCOIND_P2P_PORT     # P2P bitcoind Port
-BITCOIND_USER         # RPC username
-BITCOIND_PASS         # RPC password
-BITCOIND_DATADIR      # bitcoind datadir. 'testnet3' will be appended automatically if testnet is used. NEED to finish with '/'. e.g: `/vol/data/`
+BITMARKD_HOST         # RPC bitmarkd host
+BITMARKD_PORT         # RPC bitmarkd Port
+BITMARKD_P2P_PORT     # P2P bitmarkd Port
+BITMARKD_USER         # RPC username
+BITMARKD_PASS         # RPC password
+BITMARKD_DATADIR      # bitmarkd datadir. 'testnet3' will be appended automatically if testnet is used. NEED to finish with '/'. e.g: `/vol/data/`
 INSIGHT_NETWORK [= 'livenet' | 'testnet']
 INSIGHT_DB            # Path where to store insight's internal DB. (defaults to $HOME/.insight)
 INSIGHT_SAFE_CONFIRMATIONS=6  # Nr. of confirmation needed to start caching transaction information   
@@ -90,22 +90,22 @@ INSIGHT_IGNORE_CACHE  # True to ignore cache of spents in transaction, with more
 
 ```
 
-Make sure that bitcoind is configured to [accept incoming connections using 'rpcallowip'](https://en.bitcoin.it/wiki/Running_Bitcoin).
+Make sure that bitmarkd is configured to [accept incoming connections using 'rpcallowip'](https://en.bitmark.it/wiki/Running_Bitcoin).
 
 In case the network is changed (testnet to livenet or vice versa) levelDB database needs to be deleted. This can be performed running:
 ```util/sync.js -D``` and waiting for *insight* to synchronize again.  Once the database is deleted, the sync.js process can be safely interrupted (CTRL+C) and continued from the synchronization process embedded in main app.
 
 ## Synchronization
 
-The initial synchronization process scans the blockchain from the paired bitcoind server to update addresses and balances. *insight* needs one (and only one) trusted bitcoind node to run. This node must have finished downloading the blockchain before running *insight*.
+The initial synchronization process scans the blockchain from the paired bitmarkd server to update addresses and balances. *insight* needs one (and only one) trusted bitmarkd node to run. This node must have finished downloading the blockchain before running *insight*.
 
 While *insight* is synchronizing the website can be accessed (the sync process is embedded in the webserver), but there may be missing data or incorrect balances for addresses. The 'sync' status is shown on the top-right of all pages.
 
-The blockchain can be read from bitcoind's raw `.dat` files or RPC interface. Reading the information from the `.dat` files is much faster so it's the recommended (and default) alternative. `.dat` files are scanned in the default location for each platform. In case a non-standard location is used, it needs to be defined (see the Configuration section). The synchronization type being used can be seen at the [Status page](http://localhost:3001/status).  As of June 2014, using `.dat` files the sync process takes 9 hrs. for livenet and 30 mins. for testnet.
+The blockchain can be read from bitmarkd's raw `.dat` files or RPC interface. Reading the information from the `.dat` files is much faster so it's the recommended (and default) alternative. `.dat` files are scanned in the default location for each platform. In case a non-standard location is used, it needs to be defined (see the Configuration section). The synchronization type being used can be seen at the [Status page](http://localhost:3001/status).  As of June 2014, using `.dat` files the sync process takes 9 hrs. for livenet and 30 mins. for testnet.
 
-While synchronizing the blockchain, *insight* listens for new blocks and transactions relayed by the bitcoind node. Those are also stored on *insight*'s database. In case *insight* is shutdown for a period of time, restarting it will trigger a partial (historic) synchronization of the blockchain. Depending on the size of that synchronization task, a reverse RPC or forward `.dat` syncing strategy will be used.
+While synchronizing the blockchain, *insight* listens for new blocks and transactions relayed by the bitmarkd node. Those are also stored on *insight*'s database. In case *insight* is shutdown for a period of time, restarting it will trigger a partial (historic) synchronization of the blockchain. Depending on the size of that synchronization task, a reverse RPC or forward `.dat` syncing strategy will be used.
 
-If bitcoind is shutdown, *insight* needs to be stopped and restarted once bitcoind is restarted.
+If bitmarkd is shutdown, *insight* needs to be stopped and restarted once bitmarkd is restarted.
 
 ### Syncing old blockchain data manualy
 

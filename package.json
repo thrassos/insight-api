@@ -1,6 +1,6 @@
 {
   "name": "insight-bitcore-api",
-  "description": "An open-source bitcoin blockchain API. The Insight API provides you with a convenient, powerful and simple way to query and broadcast data on the bitcoin network and build your own services with it.",
+  "description": "An open-source bitmark blockchain API. The Insight API provides you with a convenient, powerful and simple way to query and broadcast data on the bitmark network and build your own services with it.",
   "version": "0.2.7",
   "author": {
     "name": "Ryan X Charles",
@@ -38,7 +38,7 @@
     "insight",
     "insight api",
     "blockchain",
-    "bitcoin api",
+    "bitmark api",
     "blockchain api",
     "json",
     "bitcore"

@@ -23,15 +23,15 @@ if (process.env.INSIGHT_NETWORK === 'livenet') {
   env = 'livenet';
   db = home;
   port = '3000';
-  b_port = '8332';
-  p2p_port = '8333';
+  b_port = '9266';
+  p2p_port = '9265';
 }
 else {
   env = 'testnet';
   db = home + '/testnet';
   port = '3001';
-  b_port = '18332';
-  p2p_port = '18333';
+  b_port = '19266';
+  p2p_port = '19265';
 }
 
 
@@ -49,14 +49,14 @@ switch(process.env.NODE_ENV) {
 
 var network = process.env.INSIGHT_NETWORK || 'testnet';
 
-var dataDir = process.env.BITCOIND_DATADIR;
+var dataDir = process.env.BITMARKD_DATADIR;
 var isWin = /^win/.test(process.platform);
 var isMac = /^darwin/.test(process.platform);
 var isLinux = /^linux/.test(process.platform);
 if (!dataDir) {
-  if (isWin) dataDir = '%APPDATA%\\Bitcoin\\';
-  if (isMac) dataDir = process.env.HOME + '/Library/Application Support/Bitcoin/';
-  if (isLinux) dataDir = process.env.HOME + '/.bitcoin/';
+  if (isWin) dataDir = '%APPDATA%\\Bitmark\\';
+  if (isMac) dataDir = process.env.HOME + '/Library/Application Support/Bitmark/';
+  if (isLinux) dataDir = process.env.HOME + '/.bitmark/';
 }
 dataDir += network === 'testnet' ? 'testnet3' : '';
 
@@ -64,14 +64,14 @@ var safeConfirmations = process.env.INSIGHT_SAFE_CONFIRMATIONS || 6;
 var ignoreCache      = process.env.INSIGHT_IGNORE_CACHE || 0;
 
 
-var bitcoindConf = {
-  protocol:  process.env.BITCOIND_PROTO || 'http',
-  user: process.env.BITCOIND_USER || 'user',
-  pass: process.env.BITCOIND_PASS || 'pass',
-  host: process.env.BITCOIND_HOST || '127.0.0.1',
-  port: process.env.BITCOIND_PORT || b_port,
-  p2pPort: process.env.BITCOIND_P2P_PORT || p2p_port,
-  p2pHost: process.env.BITCOIND_P2P_HOST || process.env.BITCOIND_HOST || '127.0.0.1',
+var bitmarkdConf = {
+  protocol:  process.env.BITMARKD_PROTO || 'http',
+  user: process.env.BITMARKD_USER || 'user',
+  pass: process.env.BITMARKD_PASS || 'pass',
+  host: process.env.BITMARKD_HOST || '127.0.0.1',
+  port: process.env.BITMARKD_PORT || b_port,
+  p2pPort: process.env.BITMARKD_P2P_PORT || p2p_port,
+  p2pHost: process.env.BITMARKD_P2P_HOST || process.env.BITMARKD_HOST || '127.0.0.1',
   dataDir: dataDir,
   // DO NOT CHANGE THIS!
   disableAgent: true
@@ -93,25 +93,25 @@ console.log(
 \t\tSafe Confirmations:  %s\tINSIGHT_SAFE_CONFIRMATIONS\n\
 \t\tIgnore Cache:  %s\tINSIGHT_IGNORE_CACHE\n\
  # Bicoind Connection configuration:\n\
-\t\tRPC Username: %s\tBITCOIND_USER\n\
-\t\tRPC Password: %s\tBITCOIND_PASS\n\
-\t\tRPC Protocol: %s\tBITCOIND_PROTO\n\
-\t\tRPC Host: %s\tBITCOIND_HOST\n\
-\t\tRPC Port: %s\tBITCOIND_PORT\n\
-\t\tP2P Port: %s\tBITCOIND_P2P_PORT\n\
-\t\tData Dir: %s\tBITCOIND_DATADIR\n\
+\t\tRPC Username: %s\tBITMARKD_USER\n\
+\t\tRPC Password: %s\tBITMARKD_PASS\n\
+\t\tRPC Protocol: %s\tBITMARKD_PROTO\n\
+\t\tRPC Host: %s\tBITMARKD_HOST\n\
+\t\tRPC Port: %s\tBITMARKD_PORT\n\
+\t\tP2P Port: %s\tBITMARKD_P2P_PORT\n\
+\t\tData Dir: %s\tBITMARKD_DATADIR\n\
 \t\t%s\n\
 \nChange setting by assigning the enviroment variables in the last column. Example:\n\
- $ INSIGHT_NETWORK="testnet" BITCOIND_HOST="123.123.123.123" ./insight.js\
+ $ INSIGHT_NETWORK="testnet" BITMARKD_HOST="123.123.123.123" ./insight.js\
 \n\n',
 version,
 network, home, safeConfirmations, ignoreCache?'yes':'no',
-bitcoindConf.user,
-bitcoindConf.pass?'Yes(hidden)':'No',
-bitcoindConf.protocol,
-bitcoindConf.host,
-bitcoindConf.port,
-bitcoindConf.p2pPort,
+bitmarkdConf.user,
+bitmarkdConf.pass?'Yes(hidden)':'No',
+bitmarkdConf.protocol,
+bitmarkdConf.host,
+bitmarkdConf.port,
+bitmarkdConf.p2pPort,
 dataDir+(network==='testnet'?'*':''),
 (network==='testnet'?'* (/testnet3 is added automatically)':'')
 );
@@ -130,7 +130,7 @@ module.exports = {
   apiPrefix: '/api',
   port: port,
   leveldb: db,
-  bitcoind: bitcoindConf, 
+  bitmarkd: bitmarkdConf, 
   network: network,
   disableP2pSync: false,
   disableHistoricSync: false,
