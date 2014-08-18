@@ -23,8 +23,8 @@ if (process.env.INSIGHT_NETWORK === 'livenet') {
   env = 'livenet';
   db = home;
   port = '3000';
-  b_port = '9266';
-  p2p_port = '9265';
+  b_port = '14022';
+  p2p_port = '12024';
 }
 else {
   env = 'testnet';
@@ -49,14 +49,14 @@ switch(process.env.NODE_ENV) {
 
 var network = process.env.INSIGHT_NETWORK || 'testnet';
 
-var dataDir = process.env.BITMARKD_DATADIR;
+var dataDir = process.env.DIGIBYTED_DATADIR;
 var isWin = /^win/.test(process.platform);
 var isMac = /^darwin/.test(process.platform);
 var isLinux = /^linux/.test(process.platform);
 if (!dataDir) {
-  if (isWin) dataDir = '%APPDATA%\\Bitmark\\';
-  if (isMac) dataDir = process.env.HOME + '/Library/Application Support/Bitmark/';
-  if (isLinux) dataDir = process.env.HOME + '/.bitmark/';
+  if (isWin) dataDir = '%APPDATA%\\DigiByte\\';
+  if (isMac) dataDir = process.env.HOME + '/Library/Application Support/DigiByte/';
+  if (isLinux) dataDir = process.env.HOME + '/.DigiByte/';
 }
 dataDir += network === 'testnet' ? 'testnet3' : '';
 
@@ -66,12 +66,12 @@ var ignoreCache      = process.env.INSIGHT_IGNORE_CACHE || 0;
 
 var bitmarkdConf = {
   protocol:  process.env.BITMARKD_PROTO || 'http',
-  user: process.env.BITMARKD_USER || 'user',
-  pass: process.env.BITMARKD_PASS || 'pass',
-  host: process.env.BITMARKD_HOST || '127.0.0.1',
-  port: process.env.BITMARKD_PORT || b_port,
-  p2pPort: process.env.BITMARKD_P2P_PORT || p2p_port,
-  p2pHost: process.env.BITMARKD_P2P_HOST || process.env.BITMARKD_HOST || '127.0.0.1',
+  user: process.env.DIGIBYTED_USER || 'user',
+  pass: process.env.DIGIBYTED_PASS || 'pass',
+  host: process.env.DIGIBYTED_HOST || '127.0.0.1',
+  port: process.env.DIGIBYTED_PORT || b_port,
+  p2pPort: process.env.DIGIBYTED_P2P_PORT || p2p_port,
+  p2pHost: process.env.DIGIBYTED_P2P_HOST || process.env.DIGIBYTED_HOST || '127.0.0.1',
   dataDir: dataDir,
   // DO NOT CHANGE THIS!
   disableAgent: true
@@ -93,25 +93,25 @@ console.log(
 \t\tSafe Confirmations:  %s\tINSIGHT_SAFE_CONFIRMATIONS\n\
 \t\tIgnore Cache:  %s\tINSIGHT_IGNORE_CACHE\n\
  # Bicoind Connection configuration:\n\
-\t\tRPC Username: %s\tBITMARKD_USER\n\
-\t\tRPC Password: %s\tBITMARKD_PASS\n\
-\t\tRPC Protocol: %s\tBITMARKD_PROTO\n\
-\t\tRPC Host: %s\tBITMARKD_HOST\n\
-\t\tRPC Port: %s\tBITMARKD_PORT\n\
-\t\tP2P Port: %s\tBITMARKD_P2P_PORT\n\
-\t\tData Dir: %s\tBITMARKD_DATADIR\n\
+\t\tRPC Username: %s\tDIGIBYTED_USER\n\
+\t\tRPC Password: %s\tDIGIBYTED_PASS\n\
+\t\tRPC Protocol: %s\tDIGIBYTED_PROTO\n\
+\t\tRPC Host: %s\tDIGIBYTED_HOST\n\
+\t\tRPC Port: %s\tDIGIBYTED_PORT\n\
+\t\tP2P Port: %s\tDIGIBYTED_P2P_PORT\n\
+\t\tData Dir: %s\tDIGIBYTED_DATADIR\n\
 \t\t%s\n\
 \nChange setting by assigning the enviroment variables in the last column. Example:\n\
- $ INSIGHT_NETWORK="testnet" BITMARKD_HOST="123.123.123.123" ./insight.js\
+ $ INSIGHT_NETWORK="testnet" DIGIBYTED_HOST="123.123.123.123" ./insight.js\
 \n\n',
 version,
 network, home, safeConfirmations, ignoreCache?'yes':'no',
-bitmarkdConf.user,
-bitmarkdConf.pass?'Yes(hidden)':'No',
-bitmarkdConf.protocol,
-bitmarkdConf.host,
-bitmarkdConf.port,
-bitmarkdConf.p2pPort,
+digibytedConf.user,
+digibytedConf.pass?'Yes(hidden)':'No',
+digibytedConf.protocol,
+digibytedConf.host,
+digibytedConf.port,
+digibytedConf.p2pPort,
 dataDir+(network==='testnet'?'*':''),
 (network==='testnet'?'* (/testnet3 is added automatically)':'')
 );
@@ -130,7 +130,7 @@ module.exports = {
   apiPrefix: '/api',
   port: port,
   leveldb: db,
-  bitmarkd: bitmarkdConf, 
+  bitmarkd: digibytedConf, 
   network: network,
   disableP2pSync: false,
   disableHistoricSync: false,

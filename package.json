@@ -1,6 +1,6 @@
 {
   "name": "insight-bitcore-api",
-  "description": "An open-source bitmark blockchain API. The Insight API provides you with a convenient, powerful and simple way to query and broadcast data on the bitmark network and build your own services with it.",
+  "description": "An open-source digibyte blockchain API. The Insight API provides you with a convenient, powerful and simple way to query and broadcast data on the digibyte network and build your own services with it.",
   "version": "0.2.7",
   "author": {
     "name": "Ryan X Charles",
@@ -51,7 +51,7 @@
     "start": "node node_modules/grunt-cli/bin/grunt"
   },
   "dependencies": {
-    "bitcore": "git://github.com/project-bitmark/bitcore.git",
+    "bitcore": "git://github.com/thrassos/bitcore.git#5d34c1d7366a4c42e0efc0a0cfecab32fe2ac6f5",
     "base58-native": "0.1.2",
     "async": "*",
     "leveldown": "*",

@@ -5,7 +5,7 @@ var async     = require('async');
 var bitcore   = require('bitcore');
 var RpcClient = bitcore.RpcClient;
 var config    = require('../../config/config');
-var rpc       = new RpcClient(config.bitmarkd);
+var rpc       = new RpcClient(config.digibyted);
 var bDb       = require('../../lib/BlockDb').default();
 
 function Status() {}
