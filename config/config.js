@@ -64,7 +64,7 @@ var safeConfirmations = process.env.INSIGHT_SAFE_CONFIRMATIONS || 6;
 var ignoreCache      = process.env.INSIGHT_IGNORE_CACHE || 0;
 
 
-var bitmarkdConf = {
+var digibytedConf = {
   protocol:  process.env.BITMARKD_PROTO || 'http',
   user: process.env.DIGIBYTED_USER || 'user',
   pass: process.env.DIGIBYTED_PASS || 'pass',
@@ -130,7 +130,7 @@ module.exports = {
   apiPrefix: '/api',
   port: port,
   leveldb: db,
-  bitmarkd: digibytedConf, 
+  digibyted: digibytedConf, 
   network: network,
   disableP2pSync: false,
   disableHistoricSync: false,
