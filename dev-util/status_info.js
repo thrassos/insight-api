@@ -5,7 +5,7 @@ var RpcClient = require('../node_modules/bitcore/RpcClient').class();
 
 var config = require('../config/config');
 
-var rpc   = new RpcClient(config.digibyted);
+var rpc   = new RpcClient(config.solarcoind);
 
 var block = rpc.getInfo(function(err, block) {
   if (err) {

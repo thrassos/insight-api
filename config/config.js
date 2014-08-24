@@ -22,14 +22,14 @@ var home = process.env.INSIGHT_DB || ( getUserHome()  + '/.insight' );
 if (process.env.INSIGHT_NETWORK === 'livenet') {
   env = 'livenet';
   db = home;
-  port = '3000';
-  b_port = '14022';
-  p2p_port = '12024';
+  port = '3010';
+  b_port = '18181';
+  p2p_port = '18188';
 }
 else {
   env = 'testnet';
   db = home + '/testnet';
-  port = '3001';
+  port = '3011';
   b_port = '19266';
   p2p_port = '19265';
 }
@@ -49,7 +49,7 @@ switch(process.env.NODE_ENV) {
 
 var network = process.env.INSIGHT_NETWORK || 'testnet';
 
-var dataDir = process.env.DIGIBYTED_DATADIR;
+var dataDir = process.env.SOLARCOIND_DATADIR;
 var isWin = /^win/.test(process.platform);
 var isMac = /^darwin/.test(process.platform);
 var isLinux = /^linux/.test(process.platform);
@@ -64,14 +64,14 @@ var safeConfirmations = process.env.INSIGHT_SAFE_CONFIRMATIONS || 6;
 var ignoreCache      = process.env.INSIGHT_IGNORE_CACHE || 0;
 
 
-var digibytedConf = {
+var solarcoindConf = {
   protocol:  process.env.BITMARKD_PROTO || 'http',
-  user: process.env.DIGIBYTED_USER || 'user',
-  pass: process.env.DIGIBYTED_PASS || 'pass',
-  host: process.env.DIGIBYTED_HOST || '127.0.0.1',
-  port: process.env.DIGIBYTED_PORT || b_port,
-  p2pPort: process.env.DIGIBYTED_P2P_PORT || p2p_port,
-  p2pHost: process.env.DIGIBYTED_P2P_HOST || process.env.DIGIBYTED_HOST || '127.0.0.1',
+  user: process.env.SOLARCOIND_USER || 'user',
+  pass: process.env.SOLARCOIND_PASS || 'pass',
+  host: process.env.SOLARCOIND_HOST || '127.0.0.1',
+  port: process.env.SOLARCOIND_PORT || b_port,
+  p2pPort: process.env.SOLARCOIND_P2P_PORT || p2p_port,
+  p2pHost: process.env.SOLARCOIND_P2P_HOST || process.env.SOLARCOIND_HOST || '127.0.0.1',
   dataDir: dataDir,
   // DO NOT CHANGE THIS!
   disableAgent: true
@@ -93,25 +93,25 @@ console.log(
 \t\tSafe Confirmations:  %s\tINSIGHT_SAFE_CONFIRMATIONS\n\
 \t\tIgnore Cache:  %s\tINSIGHT_IGNORE_CACHE\n\
  # Bicoind Connection configuration:\n\
-\t\tRPC Username: %s\tDIGIBYTED_USER\n\
-\t\tRPC Password: %s\tDIGIBYTED_PASS\n\
-\t\tRPC Protocol: %s\tDIGIBYTED_PROTO\n\
-\t\tRPC Host: %s\tDIGIBYTED_HOST\n\
-\t\tRPC Port: %s\tDIGIBYTED_PORT\n\
-\t\tP2P Port: %s\tDIGIBYTED_P2P_PORT\n\
-\t\tData Dir: %s\tDIGIBYTED_DATADIR\n\
+\t\tRPC Username: %s\tSOLARCOIND_USER\n\
+\t\tRPC Password: %s\tSOLARCOIND_PASS\n\
+\t\tRPC Protocol: %s\tSOLARCOIND_PROTO\n\
+\t\tRPC Host: %s\tSOLARCOIND_HOST\n\
+\t\tRPC Port: %s\tSOLARCOIND_PORT\n\
+\t\tP2P Port: %s\tSOLARCOIND_P2P_PORT\n\
+\t\tData Dir: %s\tSOLARCOIND_DATADIR\n\
 \t\t%s\n\
 \nChange setting by assigning the enviroment variables in the last column. Example:\n\
- $ INSIGHT_NETWORK="testnet" DIGIBYTED_HOST="123.123.123.123" ./insight.js\
+ $ INSIGHT_NETWORK="testnet" SOLARCOIND_HOST="123.123.123.123" ./insight.js\
 \n\n',
 version,
 network, home, safeConfirmations, ignoreCache?'yes':'no',
-digibytedConf.user,
-digibytedConf.pass?'Yes(hidden)':'No',
-digibytedConf.protocol,
-digibytedConf.host,
-digibytedConf.port,
-digibytedConf.p2pPort,
+solarcoindConf.user,
+solarcoindConf.pass?'Yes(hidden)':'No',
+solarcoindConf.protocol,
+solarcoindConf.host,
+solarcoindConf.port,
+solarcoindConf.p2pPort,
 dataDir+(network==='testnet'?'*':''),
 (network==='testnet'?'* (/testnet3 is added automatically)':'')
 );
@@ -130,7 +130,7 @@ module.exports = {
   apiPrefix: '/api',
   port: port,
   leveldb: db,
-  digibyted: digibytedConf, 
+  solarcoind: solarcoindConf, 
   network: network,
   disableP2pSync: false,
   disableHistoricSync: false,

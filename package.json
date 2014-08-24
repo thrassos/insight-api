@@ -51,7 +51,7 @@
     "start": "node node_modules/grunt-cli/bin/grunt"
   },
   "dependencies": {
-    "bitcore": "git://github.com/thrassos/bitcore.git#4927f544261dbf9b68d2497ae153f4d5186840d8",
+    "bitcore": "git://github.com/thrassos/bitcore.git#1bb5dad19ba950e1340919f34c4ba1986037e99f",
     "base58-native": "0.1.2",
     "async": "*",
     "leveldown": "*",

@@ -9,7 +9,7 @@ var assert        = require('assert'),
   networks        = require('bitcore/networks'),
   util            = require('bitcore/util/util');
 
-  var be = new BlockExtractor(config.digibyted.dataDir, config.network);
+  var be = new BlockExtractor(config.solarcoind.dataDir, config.network);
   var network = config.network === 'testnet' ? networks.testnet: networks.livenet;
 //  console.log('[read_block.js.13]', be.nextFile() );
 
